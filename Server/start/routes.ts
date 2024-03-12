@@ -8,10 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
-import Route from '@ioc:Adonis/Core/Route'
-import findUsers from './routes/findUsers' // Assurez-vous de l'importer correctement
-
-Route.get('/users', findUsers)
+import findUsers from './routes/findUsers.js'
 
 router.get('/', async () => {
   return {
@@ -19,4 +16,4 @@ router.get('/', async () => {
   }
 })
 
-
+router.get('/users', findUsers)
