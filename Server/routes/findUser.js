@@ -1,4 +1,3 @@
-// routes/users.js
 const express = require("express");
 const { connectDatabase } = require("../db/connectDB");
 

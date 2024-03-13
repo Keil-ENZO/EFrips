@@ -1,12 +1,13 @@
 // app.js
 const express = require("express");
 const usersRouter = require("./routes/findUser");
+const deleteUser = require("./routes/deleteUser");
 
 const app = express();
 const port = 3000;
 
-// Monter le routeur des utilisateurs sur l'URL '/users'
 app.use("/users", usersRouter);
+app.use("/deleteUser", deleteUser);
 
 // Démarrer le serveur
 app.listen(port, () => {
