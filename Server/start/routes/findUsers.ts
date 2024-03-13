@@ -1,26 +1,15 @@
-import { Response } from 'express'
-import { MongoClient, MongoClientOptions } from 'mongodb'
+import { Request, Response } from 'express'
+import { connectDatabase } from '../db/connectDb.js'
 
-export default async function findUsers({ response }: { response: Response }) {
+export default async function findUsers({ response }: { response: Response; request: Request }) {
   try {
     // Connexion à la base de données MongoDB
-    const client = new MongoClient(
-      process.env.MONGO_URL as string,
-      {
-        useUnifiedTopology: true,
-      } as MongoClientOptions
-    )
-    await client.connect()
+    const db = await connectDatabase()
 
-    // Récupération des utilisateurs depuis la base de données
-    const db = client.db('project1')
+    // Récupérer la collection d'utilisateurs
     const usersCollection = db.collection('Users')
     const users = await usersCollection.find().toArray()
 
-    // Fermeture de la connexion à la base de données
-    await client.close()
-
-    // Retourner les utilisateurs récupérés
     return response.status(200).json(users)
   } catch (error) {
     // Gérer les erreurs

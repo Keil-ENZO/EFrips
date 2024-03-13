@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import findUsers from './routes/findUsers.js'
+import addUser from './routes/addUser.js'
 
 router.get('/', async () => {
   return {
@@ -17,3 +18,4 @@ router.get('/', async () => {
 })
 
 router.get('/users', findUsers)
+router.post('/addUser', addUser)
