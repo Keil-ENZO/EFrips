@@ -8,8 +8,9 @@
 */
 
 import router from '@adonisjs/core/services/router'
-import findUsers from './routes/findUsers.js'
 import addUser from './routes/addUser.js'
+import deleteUser from './routes/delete.js'
+import findUsers from './routes/findUsers.js'
 
 router.get('/', async () => {
   return {
@@ -19,3 +20,4 @@ router.get('/', async () => {
 
 router.get('/users', findUsers)
 router.post('/addUser', addUser)
+router.delete('/deleteUsers/:userId', deleteUser)
