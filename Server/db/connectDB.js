@@ -1,31 +1,39 @@
-const { MongoClient } = require("mongodb");
+const path = require("path"); // Ajout de la dépendance 'path'
+const mysql = require("mysql2");
+const dotenv = require("dotenv");
 
-// URL de connexion à votre base de données MongoDB
-const uri =
-  "mongodb://127.0.0.1:27017/project1?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.5";
+// Charger les variables d'environnement depuis le fichier .env
+dotenv.config({ path: path.resolve(__dirname, "../.env") }); // Ajuster le chemin selon votre structure
 
-// Options de connexion
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+// Connexion à la base de données
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT,
+});
 
-// Fonction pour établir la connexion à la base de données
-async function connectDatabase() {
-  try {
-    // Connexion au client MongoDB
-    const client = new MongoClient(uri, options);
-    await client.connect();
-
-    console.log("Connected to the database");
-
-    // Retourne la base de données connectée
-    return client.db();
-  } catch (error) {
-    console.error("Error connecting to the database:", error);
-    throw error; // Propage l'erreur pour être traitée par l'appelant
-  }
+// Fonction pour se connecter à la base de données
+function connectToDatabase() {
+  return new Promise((resolve, reject) => {
+    db.connect((err) => {
+      if (err) {
+        console.error(
+          "Erreur de connexion à la base de données :",
+          err.message
+        );
+        reject(err);
+      } else {
+        console.log("Connexion à la base de données réussie !");
+        resolve();
+      }
+    });
+  });
 }
 
-// Exportez la fonction connectDatabase pour pouvoir l'utiliser dans d'autres fichiers
-module.exports = { connectDatabase };
+// Exporte la fonction de connexion à la base de données
+module.exports = {
+  connect: connectToDatabase,
+  query: db.query.bind(db),
+};
