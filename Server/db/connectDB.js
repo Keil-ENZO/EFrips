@@ -1,39 +1,36 @@
-const path = require("path"); // Ajout de la dépendance 'path'
-const mysql = require("mysql2");
+const path = require("path");
 const dotenv = require("dotenv");
+const { Sequelize } = require("sequelize");
 
 // Charger les variables d'environnement depuis le fichier .env
-dotenv.config({ path: path.resolve(__dirname, "../.env") }); // Ajuster le chemin selon votre structure
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
-// Connexion à la base de données
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-  port: process.env.DB_PORT,
-});
+const sequelize = new Sequelize(
+  process.env.DB_DATABASE,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+  }
+);
 
-// Fonction pour se connecter à la base de données
 function connectToDatabase() {
   return new Promise((resolve, reject) => {
-    db.connect((err) => {
-      if (err) {
+    sequelize
+      .authenticate()
+      .then(() => {
+        console.log("Connexion à la base de données réussie !");
+        resolve();
+      })
+      .catch((err) => {
         console.error(
           "Erreur de connexion à la base de données :",
           err.message
         );
         reject(err);
-      } else {
-        console.log("Connexion à la base de données réussie !");
-        resolve();
-      }
-    });
+      });
   });
 }
 
-// Exporte la fonction de connexion à la base de données
-module.exports = {
-  connect: connectToDatabase,
-  query: db.query.bind(db),
-};
+module.exports = sequelize;
