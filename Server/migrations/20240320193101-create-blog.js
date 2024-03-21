@@ -49,6 +49,40 @@ module.exports = {
       },
     });
 
+    await queryInterface.createTable("articles", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      content: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      prix: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      tags: {
+        type: Sequelize.JSON,
+        allowNull: false,
+        defaultValue: [],
+      },
+      img: {
+        type: Sequelize.BLOB,
+        allowNull: false,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+
     await queryInterface.createTable("blogs", {
       id: {
         allowNull: false,
@@ -73,10 +107,40 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    await queryInterface.createTable("adresse", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      numero: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      rue: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      codePostal: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      ville: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      pays: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+    });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("blogs");
     await queryInterface.dropTable("users");
     await queryInterface.dropTable("categories");
+    await queryInterface.dropTable("articles");
   },
 };
