@@ -97,6 +97,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
     });
 
     await queryInterface.createTable("blogs", {
@@ -124,7 +128,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable("adresse", {
+    await queryInterface.createTable("adresses", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -150,6 +154,14 @@ module.exports = {
       pays: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
     });
   },
