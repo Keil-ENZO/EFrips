@@ -1,7 +1,6 @@
 // app.js
 const express = require("express");
 const usersRouter = require("./routes/findUser");
-const deleteUser = require("./routes/deleteUser");
 const inscription = require("./routes/inscription");
 const connexion = require("./routes/connexion");
 const blog = require("./routes/findBlog");
@@ -10,10 +9,9 @@ const app = express();
 const port = 3000;
 
 app.use("/users", usersRouter);
-app.use("/deleteUser", deleteUser);
 app.use("/inscription", inscription);
 app.use("/connexion", connexion);
-app.use("/blog", blog);
+app.use("/blogs", blog);
 
 app.use("/", (req, res) => {
   res.send("Welcome to the homepage!");
