@@ -6,6 +6,7 @@ const Adresses = sequelize.define("adresses", {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true,
   },
   numero: {
     type: DataTypes.INTEGER,
