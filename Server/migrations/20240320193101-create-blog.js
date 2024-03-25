@@ -135,6 +135,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      idClient: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users", // Nom de la table référencée (peut être différent dans votre cas)
+          key: "id", // Nom de la colonne dans la table référencée
+        },
+        onUpdate: "CASCADE", // Action à effectuer lorsque la clé primaire est mise à jour
+        onDelete: "CASCADE", // Action à effectuer lorsque la ligne parent est supprimée
+      },
       numero: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -164,6 +174,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("blogs");

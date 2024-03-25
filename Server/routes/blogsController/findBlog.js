@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const Categories = require("../models/categories");
+const Blog = require("../../models/blog");
 
 // Endpoint pour récupérer tous les blogs
 router.get("/", async (req, res) => {
   try {
-    const categories = await Categories.findAll();
-    res.json(categories);
+    const blog = await Blog.findAll();
+    res.json(blog);
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    console.error("Error fetching blogs:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
