@@ -23,6 +23,8 @@ const updatedBlog = require("./routes/blogsController/updateBlog");
 // Categories
 const categories = require("./routes/categoriesController/findCategories");
 const findByIdCategories = require("./routes/categoriesController/findByIdCategories");
+const addCategories = require("./routes/categoriesController/addCategories");
+const removeCategories = require("./routes/categoriesController/removeCategories");
 
 const app = express();
 const port = 3000;
@@ -46,6 +48,8 @@ app.use("/articles", articles);
 // Endpoint Categories
 app.use("/categories", categories);
 app.use("/findByIdCategories", findByIdCategories);
+app.use("/addCategories", addCategories);
+app.use("/removeCategories", removeCategories);
 
 // Endpoint Blogs
 app.use("/blogs", blog);
