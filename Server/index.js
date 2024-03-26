@@ -1,16 +1,28 @@
 const express = require("express");
 
-const usersRouter = require("./routes/userController/findUser");
+// Auth
 const inscription = require("./routes/auth/inscription");
 const connexion = require("./routes/auth/connexion");
+
+//Users
+const usersRouter = require("./routes/userController/findUser");
+
+// Adresses
+const adresses = require("./routes/adresseController/findAdresses");
+
+// Articles
+const articles = require("./routes/articlesController/findArticles");
+
+// Blogs
 const blog = require("./routes/blogsController/findBlog");
 const addBlog = require("./routes/blogsController/addBlogs");
-const adresses = require("./routes/adresseController/findAdresses");
-const articles = require("./routes/articlesController/findArticles");
-const categories = require("./routes/categoriesController/findCategories");
 const removeBlog = require("./routes/blogsController/removeBlog");
 const findByIdBlog = require("./routes/blogsController/findByIdBlog");
 const updatedBlog = require("./routes/blogsController/updateBlog");
+
+// Categories
+const categories = require("./routes/categoriesController/findCategories");
+const findByIdCategories = require("./routes/categoriesController/findByIdCategories");
 
 const app = express();
 const port = 3000;
@@ -33,6 +45,7 @@ app.use("/articles", articles);
 
 // Endpoint Categories
 app.use("/categories", categories);
+app.use("/findByIdCategories", findByIdCategories);
 
 // Endpoint Blogs
 app.use("/blogs", blog);
