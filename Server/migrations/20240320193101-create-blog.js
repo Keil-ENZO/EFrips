@@ -90,7 +90,7 @@ module.exports = {
         defaultValue: [],
       },
       img: {
-        type: Sequelize.BLOB,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {

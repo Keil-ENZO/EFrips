@@ -26,7 +26,7 @@ const Articles = sequelize.define("articles", {
     defaultValue: [],
   },
   img: {
-    type: DataTypes.BLOB,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 });
